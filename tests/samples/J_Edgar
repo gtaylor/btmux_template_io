@@ -1,0 +1,31 @@
+Name             { J Edgar }
+Reference        { J_Edgar }
+Type             { Vehicle }
+Unit_Era         { Undefined }
+Unit_TRO         { Undefined }
+Move_Type        { Hover }
+Tons             { 25 }
+Comment          { Saved by: Kelvin McCorvin(#2) at Thu Jun  5 00:28:45 2014 }
+Mech_BV          { 328 }
+Cargo_Space      { 0 }
+Max_Suits        { 0 }
+Max_Speed        { 182.75 }
+Left_Side
+  Armor            { 19 }
+  Internals        { 3 }
+Right_Side
+  Armor            { 19 }
+  Internals        { 3 }
+Front_Side
+  Armor            { 30 }
+  Internals        { 3 }
+Aft_Side
+  Armor            { 12 }
+  Internals        { 3 }
+Turret
+  Armor            { 24 }
+  Internals        { 3 }
+    CRIT_1		  { IS.MediumLaser - - 3 }
+    CRIT_2		  { IS.SRM-2 - - 3 }
+    CRIT_3		  { IS.SRM-2 - - 3 }
+    CRIT_4		  { Ammo_IS.SRM-2 50 - - }

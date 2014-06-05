@@ -1,0 +1,82 @@
+Name             { Atlas }
+Reference        { AS7-D }
+Type             { Mech }
+Unit_Era         { Star League }
+Unit_TRO         { 3039 }
+Move_Type        { Biped }
+Tons             { 100 }
+Comment          { Saved by: Kelvin McCorvin(#2) at Sun Jun  1 23:23:36 2014 }
+Computer         { 4 }
+Radio            { 5 }
+Heat_Sinks       { 20 }
+Mech_BV          { 1557 }
+Cargo_Space      { 0 }
+Max_Suits        { 0 }
+Max_Speed        { 53.75 }
+Left_Arm
+  Armor            { 34 }
+  Internals        { 17 }
+    CRIT_1		  { ShoulderOrHip - - 3 }
+    CRIT_2		  { UpperActuator - - 3 }
+    CRIT_3		  { LowerActuator - - 3 }
+    CRIT_4		  { HandOrFootActuator - - 3 }
+    CRIT_5		  { IS.MediumLaser - - 4 }
+    CRIT_6		  { HeatSink - - 3 }
+Right_Arm
+  Armor            { 34 }
+  Internals        { 17 }
+    CRIT_1		  { ShoulderOrHip - - 3 }
+    CRIT_2		  { UpperActuator - - 3 }
+    CRIT_3		  { LowerActuator - - 3 }
+    CRIT_4		  { HandOrFootActuator - - 3 }
+    CRIT_5		  { IS.MediumLaser - - 4 }
+    CRIT_6		  { HeatSink - - 3 }
+Left_Torso
+  Armor            { 32 }
+  Internals        { 21 }
+  Rear             { 10 }
+    CRIT_1-5		  { IS.LRM-20 - - 5 }
+    CRIT_6		  { Ammo_IS.SRM-6 15 - - }
+    CRIT_7-8		  { Ammo_IS.LRM-20 6 - - }
+    CRIT_9-10		  { IS.SRM-6 - - 4 }
+    CRIT_11		  { HeatSink - - 3 }
+Right_Torso
+  Armor            { 32 }
+  Internals        { 21 }
+  Rear             { 10 }
+    CRIT_1-10		  { IS.AC/20 - - 3 }
+    CRIT_11-12		  { Ammo_IS.AC/20 5 - - }
+Center_Torso
+  Armor            { 47 }
+  Internals        { 31 }
+  Rear             { 14 }
+    CRIT_1-3		  { Engine - - 3 }
+    CRIT_4-7		  { Gyro - - 3 }
+    CRIT_8-10		  { Engine - - 3 }
+    CRIT_11		  { IS.MediumLaser - RearMount 4 }
+    CRIT_12		  { IS.MediumLaser - RearMount 4 }
+Left_Leg
+  Armor            { 41 }
+  Internals        { 21 }
+    CRIT_1		  { ShoulderOrHip - - 3 }
+    CRIT_2		  { UpperActuator - - 3 }
+    CRIT_3		  { LowerActuator - - 3 }
+    CRIT_4		  { HandOrFootActuator - - 3 }
+    CRIT_5-6		  { HeatSink - - 3 }
+Right_Leg
+  Armor            { 41 }
+  Internals        { 21 }
+    CRIT_1		  { ShoulderOrHip - - 3 }
+    CRIT_2		  { UpperActuator - - 3 }
+    CRIT_3		  { LowerActuator - - 3 }
+    CRIT_4		  { HandOrFootActuator - - 3 }
+    CRIT_5-6		  { HeatSink - - 3 }
+Head
+  Armor            { 9 }
+  Internals        { 3 }
+    CRIT_1		  { LifeSupport - - 3 }
+    CRIT_2		  { Sensors - - 3 }
+    CRIT_3		  { Cockpit - - 3 }
+    CRIT_4		  { HeatSink - - 3 }
+    CRIT_5		  { Sensors - - 3 }
+    CRIT_6		  { LifeSupport - - 3 }

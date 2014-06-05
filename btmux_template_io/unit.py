@@ -20,6 +20,12 @@ class BTMuxUnit(object):
         self.computer_level = None
         self.radio_level = None
         self.battle_value = None
+        self.tactical_range = None
+        self.lrs_range = None
+        self.scan_range = None
+        self.radio_range = None
+        self.radio_type = None
+        self.fuel = None
         self.max_speed = None
         self.jump_speed = None
         self.templater_comment = None

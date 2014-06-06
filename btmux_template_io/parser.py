@@ -43,6 +43,7 @@ HEADER_FIELDS = {
     'Scan_Range': {'type': int, 'unit_attr': 'scan_range'},
     'Fuel': {'type': int, 'unit_attr': 'fuel'},
     'Cargo_Space': {'type': int, 'unit_attr': 'cargo_space'},
+    'Max_Ton': {'type': int, 'unit_attr': 'cargo_max_ton'},
     'Max_Suits': {'type': int, 'unit_attr': 'battlesuit_total'},
     'Mech_BV': {'type': int, 'unit_attr': 'battle_value'},
     'Max_Speed': {'type': float, 'unit_attr': 'max_speed'},

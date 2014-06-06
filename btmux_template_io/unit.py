@@ -15,6 +15,7 @@ class BTMuxUnit(object):
         self.unit_tro = None
         self.weight = None
         self.cargo_space = None
+        self.cargo_max_ton = None
         self.battlesuit_total = None
         self.heatsink_total = None
         self.computer_level = None
@@ -67,6 +68,8 @@ class BTMuxUnit(object):
         :returns: The jumpjet range of the unit (in hexes).
         """
 
+        if not self.jump_speed:
+            return 0
         return int(self.jump_speed / 10)
 
     @property

@@ -33,6 +33,9 @@ class BTMuxUnit(object):
         self.infantry_specials = []
         self.sections = {}
 
+    def __str__(self):
+        return "<BTMuxUnit: %s %s>" % (self.reference, self.name)
+
     @property
     def crits(self):
         """
@@ -106,4 +109,3 @@ class BTMuxUnit(object):
         """
 
         return self.weight * math.floor(((self.max_speed / 10.75) / 3.0) * 2.0)
-        #[mul(btgetxcodevalue_ref(%0,Tons),floor(mul(fdiv(fdiv(btgetxcodevalue_ref(%0,Maxspeed),10.75),3),2)))]

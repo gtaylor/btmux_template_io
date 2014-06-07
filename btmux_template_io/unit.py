@@ -30,6 +30,8 @@ class BTMuxUnit(object):
         self.max_speed = None
         self.jump_speed = None
         self.templater_comment = None
+        # NOTE: These only include what was in the template. BTMux calculates
+        # a bunch of additional specials at unit load time.
         self.specials = []
         self.infantry_specials = []
         self.sections = {}

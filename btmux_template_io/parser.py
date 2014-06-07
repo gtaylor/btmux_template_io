@@ -145,7 +145,7 @@ def _parse_section(template_lines, section_start_line_num, unit_obj):
     :param unit_obj: The object to set the sections attribute on.
     """
 
-    section_name = template_lines[section_start_line_num]
+    section_name = template_lines[section_start_line_num].lower()
     section_data = {}
     crits = []
 

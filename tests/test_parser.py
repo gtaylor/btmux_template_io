@@ -9,7 +9,7 @@ from btmux_template_io.parser import parse_from_file
 
 
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))
-SAMPLE_DIR = os.path.join(TEST_DIR, 'samples')
+SAMPLE_DIR = os.path.join(TEST_DIR, 'btmux_samples')
 
 
 class BasicParserTests(unittest.TestCase):
@@ -31,8 +31,8 @@ class BasicParserTests(unittest.TestCase):
         self.assertEqual(unit.unit_type, 'Mech')
         self.assertEqual(unit.heatsink_total, 32)
         mech_sections = {
-            'Left_Arm', 'Right_Arm', 'Left_Torso', 'Right_Torso',
-            'Center_Torso', 'Left_Leg', 'Right_Leg', 'Head',
+            'left_arm', 'right_arm', 'left_torso', 'right_torso',
+            'center_torso', 'left_leg', 'right_leg', 'head',
         }
         parsed_sections = set(unit.sections.keys())
         # All sections listed above should be in the loaded unit obj,
@@ -50,8 +50,13 @@ class BasicParserTests(unittest.TestCase):
         without errors.
         """
 
-        for template_file in os.listdir(SAMPLE_DIR):
-            parse_from_file(os.path.join(SAMPLE_DIR, template_file))
+        SPAM_DIR = '/Users/gtaylor/workspace/btmux/game/mechs'
+        for template_file in os.listdir(SPAM_DIR):
+            full_path = os.path.join(SPAM_DIR, template_file)
+            if not os.path.isfile(full_path):
+                continue
+            #print template_file
+            parse_from_file(full_path)
 
 
 class BTMuxUnitTests(unittest.TestCase):

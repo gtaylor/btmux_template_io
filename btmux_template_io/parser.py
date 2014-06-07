@@ -20,8 +20,8 @@ from btmux_template_io.unit import BTMuxUnit
 
 
 # TODO: Get more specific than (.*) with these groups.
-HEADER_RE = re.compile(r'^(?P<field_name>[a-zA-Z_]+)(.*){(?P<field_value>.*)}$')
-SECTION_RE = re.compile(r'^([ ]*)(?P<field_name>[\w-]+)(.*){(?P<field_value>.*)}$')
+HEADER_RE = re.compile(r'^(?P<field_name>[a-zA-Z_]+)(.*){(?P<field_value>.*)}')
+SECTION_RE = re.compile(r'^([ ]*)(?P<field_name>[\w-]+)(.*){(?P<field_value>.*)}')
 
 # Maps the header field's name in the template to attributes on the eventual
 # unit object. We also cast the values for convenience.
@@ -163,8 +163,10 @@ def _parse_section(template_lines, section_start_line_num, unit_obj):
             # This is a crit line.
             crits.append(_parse_crit(field_name, field_value))
         else:
-            # This is an armor or internal total field.
-            section_data[field_name.lower()] = int(field_value)
+            # This is an armor, internal, or config field.
+            if field_value.isdigit():
+                field_value = int(field_value)
+            section_data[field_name.lower()] = field_value
 
         line_num += 1
     section_data['crits'] = crits
@@ -184,14 +186,15 @@ def _parse_crit(raw_field_name, field_value):
     """
 
     value_split = field_value.split()
-    crit_name = value_split[0]
-    ammo_tons = value_split[1]
-    flags = value_split[2]
-    # TODO: There is a third value, but I'm not sure what it is.
-
-    ammo_tons = None if ammo_tons == '-' else ammo_tons
-    flags = None if flags == '-' else flags
-    crit_data = {'name': crit_name, 'ammo_tons': ammo_tons, 'flags': flags}
+    crit_data = dict()
+    crit_data['name'] = value_split[0]
+    if len(value_split) > 1:
+        ammo_tons = value_split[1]
+        crit_data['ammo_tons'] = None if ammo_tons == '-' else ammo_tons
+    if len(value_split) > 2:
+        flags = value_split[2]
+        crit_data['flags'] = None if flags == '-' else flags
+    # There's a third brand value, but screw that thing.
 
     _, field_name = raw_field_name.split('CRIT_')
     if '-' in field_name:

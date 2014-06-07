@@ -1,4 +1,5 @@
 import math
+from collections import OrderedDict
 
 
 class BTMuxUnit(object):
@@ -14,10 +15,10 @@ class BTMuxUnit(object):
         self.unit_era = None
         self.unit_tro = None
         self.weight = None
-        self.cargo_space = None
-        self.cargo_max_ton = None
-        self.battlesuit_total = None
-        self.heatsink_total = None
+        self.cargo_space = 0
+        self.cargo_max_ton = 0
+        self.battlesuit_total = 0
+        self.heatsink_total = 10
         self.computer_level = None
         self.radio_level = None
         self.battle_value = None
@@ -26,7 +27,7 @@ class BTMuxUnit(object):
         self.scan_range = None
         self.radio_range = None
         self.radio_type = None
-        self.fuel = None
+        self.fuel = 0
         self.max_speed = None
         self.jump_speed = None
         self.templater_comment = None
@@ -34,7 +35,7 @@ class BTMuxUnit(object):
         # a bunch of additional specials at unit load time.
         self.specials = []
         self.infantry_specials = []
-        self.sections = {}
+        self.sections = OrderedDict()
 
     def __str__(self):
         return "<BTMuxUnit: %s %s>" % (self.reference, self.name)
@@ -86,7 +87,7 @@ class BTMuxUnit(object):
 
         armor_total = 0
         for section_name, section_dict in self.sections.items():
-            armor_total += section_dict['armor']
+            armor_total += section_dict.get('armor', 0)
 
         return armor_total
 
@@ -102,7 +103,7 @@ class BTMuxUnit(object):
 
         internals_total = 0
         for section_name, section_dict in self.sections.items():
-            internals_total += section_dict['internals']
+            internals_total += section_dict.get('internals', 0)
 
         return internals_total
 

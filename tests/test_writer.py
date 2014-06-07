@@ -6,7 +6,7 @@ import os
 import unittest
 from StringIO import StringIO
 
-from btmux_template_io.parser import parse_from_file
+from btmux_template_io.parsers.btmux import parse_from_file
 from btmux_template_io.writer import write_to_file
 
 

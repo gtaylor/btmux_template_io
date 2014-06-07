@@ -5,7 +5,7 @@ Template parser tests.
 import os
 import unittest
 
-from btmux_template_io.parser import parse_from_file
+from btmux_template_io.parsers.btmux import parse_from_file
 
 
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))

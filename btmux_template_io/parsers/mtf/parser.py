@@ -12,6 +12,8 @@ from btmux_template_io.common_calcs import calc_section_internal, \
 from btmux_template_io.parsers.mtf.crit_mapping import CRIT_MAP
 from btmux_template_io.parsers.mtf.section_mapping import SECTION_MAP
 
+# TODO: Account for fliparms.
+
 
 def parse_from_string(template_contents):
     """
@@ -92,8 +94,8 @@ def _set_headers(value_dict, unit_obj):
 
     unit_obj.unit_type = 'Mech'
     unit_obj.unit_move_type = value_dict['Config']
-    unit_obj.unit_tro = value_dict['Era']
-    unit_obj.unit_era = value_dict['Source']
+    unit_obj.unit_tro = value_dict.get('Era')
+    unit_obj.unit_era = value_dict.get('Source')
     unit_obj.weight = value_dict['Mass']
     unit_obj.max_speed = max_speed
     unit_obj.jump_speed = jump_speed
@@ -178,7 +180,8 @@ def _set_section_contents(section_start_line_num, template_lines, unit_obj):
 
         # Map MTF crit to BTMux and get some details on what we'll be writing.
         crit_data = CRIT_MAP[crit_line]
-        num_crits = crit_data.get('crits', 1)
+        btmux_item_name = crit_data['name']
+        num_crits = ITEM_TABLE[btmux_item_name].get('crits', 1)
         if num_crits > 1:
             # Multi-crit weapon. We'll skip the next however many crits.
             skip_counter = num_crits - 1
@@ -189,7 +192,10 @@ def _set_section_contents(section_start_line_num, template_lines, unit_obj):
             last_crit = crit_num + num_crits
             item_slots = range(crit_num, last_crit)
 
-        btmux_item_name = crit_data['name']
+        added_special = crit_data.get('add_special')
+        if added_special:
+            unit_obj.specials.add(added_special)
+
         item_data = {
             'name': btmux_item_name,
             'ammo_count': ITEM_TABLE[btmux_item_name].get('ammo_count'),

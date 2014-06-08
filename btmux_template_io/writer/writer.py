@@ -24,6 +24,11 @@ def _write_all_headers(unit, fobj):
     """
 
     now = datetime.datetime.now()
+    if unit.jump_speed:
+        jump_speed = '%.2f' % unit.jump_speed
+    else:
+        jump_speed = None
+
     # Case and order is significant.
     header_map = (
         ('Name', unit.name),
@@ -41,7 +46,8 @@ def _write_all_headers(unit, fobj):
         ('Cargo_Space', unit.cargo_space),
         ('Max_Suits', unit.battlesuit_total),
         ('Max_Speed', '%.2f' % unit.max_speed),
-        ('Specials', unit.specials),
+        ('Jump_Speed', jump_speed),
+        ('Specials', ' '.join(list(unit.specials))),
     )
 
     for header_name, header_value in header_map:

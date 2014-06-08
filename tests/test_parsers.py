@@ -26,6 +26,19 @@ class MTFParserTests(unittest.TestCase):
 
         unit = self._load_sample('Atlas AS7-D.mtf')
 
+    def test_spammy_load(self):
+        """
+        Go through our samples directory and make sure everything loads
+        without errors.
+        """
+
+        for template_file in os.listdir(MTF_SAMPLE_DIR):
+            full_path = os.path.join(MTF_SAMPLE_DIR, template_file)
+            if not os.path.isfile(full_path):
+                continue
+            print template_file
+            self._load_sample(full_path)
+
 
 class BTMuxParserTests(unittest.TestCase):
 

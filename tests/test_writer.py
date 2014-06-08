@@ -34,7 +34,7 @@ class MTFWriterTests(unittest.TestCase):
 
     def test_basic_mech_write(self):
 
-        unit = mtf.parse_from_file(os.path.join(MTF_SAMPLE_DIR, 'Atlas AS7-D.mtf'))
+        unit = mtf.parse_from_file(os.path.join(MTF_SAMPLE_DIR, 'Goliath GOL-1H.mtf'))
         fobj = StringIO()
         write_to_file(unit, fobj)
         print fobj.getvalue()

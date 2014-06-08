@@ -5,28 +5,47 @@ Template parser tests.
 import os
 import unittest
 
-from btmux_template_io.parsers.btmux import parse_from_file
+from btmux_template_io.parsers import btmux
+from btmux_template_io.parsers import mtf
 
 
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))
-SAMPLE_DIR = os.path.join(TEST_DIR, 'btmux_samples')
+BTMUX_SAMPLE_DIR = os.path.join(TEST_DIR, 'btmux_samples')
+MTF_SAMPLE_DIR = os.path.join(TEST_DIR, 'mtf_samples')
 
 
-class BasicParserTests(unittest.TestCase):
+class MTFParserTests(unittest.TestCase):
 
-    def test_invalid_load(self):
-        """
-        Attempt to parse a non-existent file.
-        """
-
-        self.assertRaises(IOError, parse_from_file, 'bogus_file')
+    def _load_sample(self, path):
+        return mtf.parse_from_file(os.path.join(MTF_SAMPLE_DIR, path))
 
     def test_basic_mech_load(self):
         """
         Spot checks some basic mech loading values.
         """
 
-        unit = parse_from_file(os.path.join(SAMPLE_DIR, 'MAD-9M'))
+        unit = self._load_sample('Atlas AS7-D.mtf')
+
+
+class BTMuxParserTests(unittest.TestCase):
+
+    def _load_sample(self, path):
+        return btmux.parse_from_file(os.path.join(BTMUX_SAMPLE_DIR, path))
+
+    def test_invalid_load(self):
+        """
+        Attempt to parse a non-existent file.
+        """
+
+        self.assertRaises(IOError, self._load_sample, 'bogus_file')
+
+    def test_basic_mech_load(self):
+        """
+        Spot checks some basic mech loading values.
+        """
+
+        unit = self._load_sample('MAD-9M')
+        print unit.sections
         self.assertEqual(unit.reference, 'MAD-9M')
         self.assertEqual(unit.unit_type, 'Mech')
         self.assertEqual(unit.heatsink_total, 32)
@@ -56,20 +75,14 @@ class BasicParserTests(unittest.TestCase):
             if not os.path.isfile(full_path):
                 continue
             #print template_file
-            parse_from_file(full_path)
-
-
-class BTMuxUnitTests(unittest.TestCase):
-    """
-    Tests some of the convenience methods/properties on BTMuxUnit.
-    """
+            self._load_sample(full_path)
 
     def test_armor_total(self):
         """
         Tests the armor point counting property.
         """
 
-        unit = parse_from_file(os.path.join(SAMPLE_DIR, 'MAD-9M'))
+        unit = self._load_sample('MAD-9M')
         self.assertEqual(unit.armor_total, 197)
 
     def test_internals_total(self):
@@ -77,7 +90,7 @@ class BTMuxUnitTests(unittest.TestCase):
         Tests the internals point counting property.
         """
 
-        unit = parse_from_file(os.path.join(SAMPLE_DIR, 'MAD-9M'))
+        unit = self._load_sample('MAD-9M')
         self.assertEqual(unit.internals_total, 114)
 
     def test_engine_rating_calc(self):
@@ -85,7 +98,7 @@ class BTMuxUnitTests(unittest.TestCase):
         Tests the calculation of engine ratings.
         """
 
-        unit = parse_from_file(os.path.join(SAMPLE_DIR, 'MAD-9M'))
+        unit = self._load_sample('MAD-9M')
         self.assertEqual(unit.engine_size, 300)
 
     def test_jumpjet_stuff(self):
@@ -93,6 +106,6 @@ class BTMuxUnitTests(unittest.TestCase):
         Tests the jumpjet counting and range calculations.
         """
 
-        unit = parse_from_file(os.path.join(SAMPLE_DIR, 'JR7-D'))
+        unit = self._load_sample('JR7-D')
         self.assertEqual(unit.jumpjet_total, 3)
         self.assertEqual(unit.jumpjet_range, 5)

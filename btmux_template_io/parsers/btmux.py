@@ -54,21 +54,17 @@ HEADER_FIELDS = {
 }
 
 
-def parse_from_string(template_contents, unit_obj=None):
+def parse_from_string(template_contents):
     """
     Given the full contents of a properly formed template file, parse it
     and return an object with the template's values set as attributes.
 
     :param str template_contents: The full contents of a valid template.
-    :keyword unit_obj: If you want to pass in your own unit instance to use,
-        do so here. Otherwise we'll use our default :py:class:`BTMuxUnit`
-        class.
     :rtype: btmux_template_io.unit.BTMuxUnit
     :return: A BTMuxUnit instance with the template's values set in attributes.
     """
 
-    if not unit_obj:
-        unit_obj = BTMuxUnit()
+    unit_obj = BTMuxUnit()
     lines = template_contents.split('\n')
 
     section_indices = []
@@ -87,21 +83,18 @@ def parse_from_string(template_contents, unit_obj=None):
     return unit_obj
 
 
-def parse_from_file(template_path, unit_obj=None):
+def parse_from_file(template_path):
     """
     Given a properly formed template file, parse it and return an object with
     the template's values set as attributes.
 
     :param str template_path: Full path to a properly formed BTMux template.
-    :keyword unit_obj: If you want to pass in your own unit instance to use,
-        do so here. Otherwise we'll use our default :py:class:`BTMuxUnit`
-        class.
     :rtype: btmux_template_io.unit.BTMuxUnit
     :return: A BTMuxUnit instance with the template's values set in attributes.
     """
 
     fobj = open(template_path, 'r')
-    return parse_from_string(fobj.read(), unit_obj=unit_obj)
+    return parse_from_string(fobj.read())
 
 
 def _parse_header_fields(template_lines, header_end_line_num, unit_obj):
@@ -112,7 +105,8 @@ def _parse_header_fields(template_lines, header_end_line_num, unit_obj):
     :param list template_lines: The template contents split into lines.
     :param int header_end_line_num: The line number of the first section, so
         we can parse all the way up to the previous line.
-    :param unit_obj: The object to set the parsed attributes on.
+    :param btmux_template_io.unit.BTMuxUnit unit_obj: The object to set the
+        parsed attributes on.
     """
 
     header_line_nums = range(0, header_end_line_num)
@@ -142,7 +136,8 @@ def _parse_section(template_lines, section_start_line_num, unit_obj):
 
     :param list template_lines: The template contents split into lines.
     :param int section_start_line_num: The first line in the section to parse.
-    :param unit_obj: The object to set the sections attribute on.
+    :param btmux_template_io.unit.BTMuxUnit unit_obj: The object to set
+        the sections attribute on.
     """
 
     section_name = template_lines[section_start_line_num].lower()
@@ -189,8 +184,8 @@ def _parse_crit(raw_field_name, field_value):
     crit_data = dict()
     crit_data['name'] = value_split[0]
     if len(value_split) > 1:
-        ammo_tons = value_split[1]
-        crit_data['ammo_tons'] = None if ammo_tons == '-' else ammo_tons
+        ammo_count = value_split[1]
+        crit_data['ammo_count'] = None if ammo_count == '-' else ammo_count
     if len(value_split) > 2:
         flags = value_split[2]
         crit_data['flags'] = None if flags == '-' else flags

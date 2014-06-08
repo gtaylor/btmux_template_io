@@ -140,9 +140,9 @@ def _write_crit(crit_name, crit_contents, fobj):
     """
 
     part = crit_contents['name']
-    ammo_tons = crit_contents['ammo_tons'] or '-'
+    ammo_count = crit_contents['ammo_count'] or '-'
     flags = crit_contents['flags'] or '-'
 
-    val_str = "    {crit_name:<12} {{ {part} {ammo_tons} {flags} }}\n".format(
-        crit_name=crit_name, part=part, ammo_tons=ammo_tons, flags=flags)
+    val_str = "    {crit_name:<12} {{ {part} {ammo_count} {flags} }}\n".format(
+        crit_name=crit_name, part=part, ammo_count=ammo_count, flags=flags)
     fobj.write(val_str)

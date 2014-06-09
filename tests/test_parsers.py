@@ -12,7 +12,7 @@ from btmux_template_io.parsers import mtf
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))
 BTMUX_SAMPLE_DIR = os.path.join(TEST_DIR, 'btmux_samples')
 #MTF_SAMPLE_DIR = os.path.join(TEST_DIR, 'mtf_samples')
-MTF_SAMPLE_DIR = '/Users/gtaylor/workspace/mtfs/3055U'
+MTF_SAMPLE_DIR = '/Users/gtaylor/workspace/mtfs/3060u'
 
 
 class MTFParserTests(unittest.TestCase):

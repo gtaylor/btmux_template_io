@@ -12,8 +12,6 @@ from btmux_template_io.common_calcs import calc_section_internal, \
 from btmux_template_io.parsers.mtf.crit_mapping import CRIT_MAP
 from btmux_template_io.parsers.mtf.section_mapping import SECTION_MAP
 
-# TODO: Account for fliparms.
-
 
 def parse_from_string(template_contents):
     """
@@ -26,14 +24,16 @@ def parse_from_string(template_contents):
     """
 
     unit_obj = BTMuxUnit()
-    lines = template_contents.split('\n')
+    lines = [line.strip() for line in template_contents.split('\n')]
 
     unit_obj.name = lines[1]
     unit_obj.reference = lines[2]
     value_dict = _get_value_dict(lines)
+
     _set_headers(value_dict, unit_obj)
     _set_armor(value_dict, unit_obj)
     _find_and_set_section_contents(lines, unit_obj)
+    _add_specials(value_dict, unit_obj)
 
     return unit_obj
 
@@ -92,8 +92,14 @@ def _set_headers(value_dict, unit_obj):
     jump_mp = float(value_dict['Jump MP'])
     jump_speed = calc_jump_speed(jump_mp)
 
+    move_type = value_dict['Config']
+    if move_type.lower() == 'biped omnimech':
+        move_type = 'Biped'
+    if move_type not in ['Biped', 'Quad']:
+        raise ValueError('Unknown move type: %s' % move_type)
+
     unit_obj.unit_type = 'Mech'
-    unit_obj.unit_move_type = value_dict['Config']
+    unit_obj.unit_move_type = move_type
     unit_obj.unit_tro = value_dict.get('Era')
     unit_obj.unit_era = value_dict.get('Source')
     unit_obj.weight = value_dict['Mass']
@@ -176,30 +182,129 @@ def _set_section_contents(section_start_line_num, template_lines, unit_obj):
         crit_line = crit_line.strip()
         if crit_line in ['', '-Empty-']:
             break
+        #from pprint import pprint
+        #pprint(unit_obj.sections[btmux_section_name]['crits'])
         assert crit_num < 13, "Crit numbers can't exceed 12: %s" % crit_num
 
         # Map MTF crit to BTMux and get some details on what we'll be writing.
         crit_data = CRIT_MAP[crit_line]
         btmux_item_name = crit_data['name']
-        num_crits = ITEM_TABLE[btmux_item_name].get('crits', 1)
+        if not btmux_item_name:
+            # We don't support this item.
+            continue
+
+        num_crits, item_slots = _calc_crits(btmux_item_name, crit_num)
+
+        # If this is something like FerroFibrous, a special tech gets added
+        # to the unit.
+        _add_special_from_crit(btmux_item_name, unit_obj)
+        # Adds the crit(s) to the unit_obj's sections dict under the
+        # appropriate section.
+        _set_section_item(
+            btmux_item_name, btmux_section_name, crit_data, item_slots, unit_obj)
+
         if num_crits > 1:
-            # Multi-crit weapon. We'll skip the next however many crits.
+            # Multi-crit weapon/item. We'll skip the next however many crits.
             skip_counter = num_crits - 1
 
-        if num_crits == 1:
-            item_slots = [crit_num]
+
+def _add_special_from_crit(btmux_item_name, unit_obj):
+    if btmux_item_name.startswith('Ammo_'):
+        return
+    added_special = ITEM_TABLE[btmux_item_name].get('add_special')
+    if added_special:
+        unit_obj.specials.add(added_special)
+
+
+def _set_section_item(btmux_item_name, btmux_section_name, crit_data,
+                      item_slots, unit_obj):
+    item_data = {
+        'name': btmux_item_name,
+        'ammo_count': None,
+        'flags': crit_data.get('flags'),
+    }
+
+    special_override = crit_data.get('add_special')
+    if special_override:
+        unit_obj.specials.add(special_override)
+
+    if btmux_item_name.startswith('Ammo_'):
+        _, weap_name = btmux_item_name.split('Ammo_')
+        if crit_data.get('ammo_count'):
+            # Override is used in the crit mapping for half-tons of ammo.
+            ammo_count = crit_data['ammo_count']
         else:
-            last_crit = crit_num + num_crits
-            item_slots = range(crit_num, last_crit)
+            ammo_count = ITEM_TABLE[weap_name].get('ammo_count')
+        item_data['ammo_count'] = ammo_count
 
-        added_special = crit_data.get('add_special')
-        if added_special:
-            unit_obj.specials.add(added_special)
+    item_tuple = (item_slots, item_data)
+    unit_obj.sections[btmux_section_name]['crits'].append(item_tuple)
 
-        item_data = {
-            'name': btmux_item_name,
-            'ammo_count': ITEM_TABLE[btmux_item_name].get('ammo_count'),
-            'flags': crit_data.get('flags'),
-        }
-        item_tuple = (item_slots, item_data)
-        unit_obj.sections[btmux_section_name]['crits'].append(item_tuple)
+
+def _calc_crits(btmux_item_name, crit_num):
+    if btmux_item_name.startswith('Ammo_'):
+        num_crits = 1
+    else:
+        num_crits = ITEM_TABLE[btmux_item_name].get('crits', 1)
+
+    if num_crits == 1:
+        item_slots = [crit_num]
+    else:
+        last_crit = crit_num + num_crits
+        item_slots = range(crit_num, last_crit)
+
+    return num_crits, item_slots
+
+
+def _add_specials(value_dict, unit_obj):
+    hs_total, hs_type = value_dict['Heat Sinks'].split()
+    if hs_type == 'Single':
+        pass
+    elif hs_type == 'Double':
+        unit_obj.specials.add('DoubleHS')
+    else:
+        raise ValueError("Unknown HS type: %s" % hs_type)
+
+    armor = value_dict['Armor']
+    if 'Standard' in armor:
+        pass
+    elif 'Ferro-Fibrous' in armor:
+        unit_obj.specials.add('FerroFibrous_Tech')
+    elif 'Hardened' in armor:
+        unit_obj.specials.add('HardenedArmor_Tech')
+    elif 'Stealth' in armor:
+        unit_obj.specials.add('StealthArmor_Tech')
+    else:
+        raise ValueError("Unknown armor type: %s" % armor)
+
+    internals = value_dict['Structure']
+    if 'Standard' in internals:
+        pass
+    elif 'Endo' in internals:
+        unit_obj.specials.add('EndoSteel_Tech')
+    else:
+        raise ValueError("Unknown internals type: %s" % internals)
+
+    engine = value_dict['Engine']
+    if 'Fusion' in engine:
+        pass
+    elif 'XL' in engine:
+        unit_obj.specials.add('XLEngine_Tech')
+    elif 'Light Engine' in engine:
+        unit_obj.specials.add('LightEngine_Tech')
+    elif 'Compact Engine' in engine:
+        unit_obj.specials.add('CompactEngine_Tech')
+    else:
+        raise ValueError("Unknown engine type: %s" % engine)
+
+    if 'Clan' in value_dict['TechBase']:
+        unit_obj.specials.add('Clan')
+
+    if 'Triple-Strength' in value_dict['Myomer']:
+        unit_obj.specials.add('TripleMyomerTech')
+
+    if 'LtFerroFibrous_Tech' in unit_obj.specials:
+        try:
+            unit_obj.specials.remove('FerroFibrous_Tech')
+        except KeyError:
+            pass

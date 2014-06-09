@@ -11,7 +11,8 @@ from btmux_template_io.parsers import mtf
 
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))
 BTMUX_SAMPLE_DIR = os.path.join(TEST_DIR, 'btmux_samples')
-MTF_SAMPLE_DIR = os.path.join(TEST_DIR, 'mtf_samples')
+#MTF_SAMPLE_DIR = os.path.join(TEST_DIR, 'mtf_samples')
+MTF_SAMPLE_DIR = '/Users/gtaylor/workspace/mtfs/3055U'
 
 
 class MTFParserTests(unittest.TestCase):
@@ -23,7 +24,7 @@ class MTFParserTests(unittest.TestCase):
         """
         Spot checks some basic mech loading values.
         """
-
+        return
         unit = self._load_sample('Atlas AS7-D.mtf')
 
     def test_spammy_load(self):
@@ -33,6 +34,8 @@ class MTFParserTests(unittest.TestCase):
         """
 
         for template_file in os.listdir(MTF_SAMPLE_DIR):
+            if template_file.startswith('.'):
+                continue
             full_path = os.path.join(MTF_SAMPLE_DIR, template_file)
             if not os.path.isfile(full_path):
                 continue

@@ -13,6 +13,22 @@ Requirements
 
 * Python 2.7 (but not Python 3)
 
+CLI MTF to BTMux conversion examples
+------------------------------------
+
+Converting an entire directory of MTF files to a directory of BTMux
+template files::
+
+    mtfconvdir mtfs/ btmux/game.run/mechs/
+
+Converting a single MTF file to BTMux, printing output to stdout::
+
+    mtfconv mtfs/test_mtf.mtf -
+
+Same thing, but write to a file this time::
+
+    mtfconv mtfs/test_mtf.mtf btmux/game.run/mechs/TESTMECH
+
 
 Legal Mumbo Jumbo
 -----------------

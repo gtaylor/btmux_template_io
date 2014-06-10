@@ -28,10 +28,22 @@ setup(
     author_email='gtaylor@gc-taylor.com',
     url='https://github.com/gtaylor/btmux_template_io',
     download_url='http://pypi.python.org/pypi/btmux_template_io/',
-    packages=['btmux_template_io'],
+    packages=[
+        'btmux_template_io',
+        'btmux_template_io.parsers',
+        'btmux_template_io.parsers.mtf',
+        'btmux_template_io.writer',
+        'btmux_template_io.scripts',
+    ],
     platforms=['Platform Independent'],
     license='BSD',
     classifiers=CLASSIFIERS,
     keywords=KEYWORDS,
-    requires=[]
+    install_requires=['click'],
+    entry_points={
+        'console_scripts': [
+            'mtfconv=btmux_template_io.scripts.mtfconv:convert',
+            'mtfconvdir=btmux_template_io.scripts.mtfconvdir:convert',
+        ],
+    },
 )

@@ -90,6 +90,7 @@ CRIT_MAP = {
 
     'ISAntiMissileSystem': {'name': 'IS.Anti-MissileSystem'},
     'ISAMS Ammo': {'name': 'Ammo_IS.Anti-MissileSystem'},
+    'IS AMS Ammo': {'name': 'Ammo_IS.Anti-MissileSystem'},
 
     'CLAntiMissileSystem': {'name': 'CL.Anti-MissileSystem'},
     'Clan AMS Ammo': {'name': 'Ammo_CL.Anti-MissileSystem'},

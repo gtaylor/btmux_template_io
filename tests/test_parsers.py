@@ -125,3 +125,13 @@ class BTMuxParserTests(unittest.TestCase):
         unit = self._load_sample('JR7-D')
         self.assertEqual(unit.jumpjet_total, 3)
         self.assertEqual(unit.jumpjet_range, 5)
+
+    def test_fliparms_autoset(self):
+        """
+        Tests the autosetting of fliparms special.
+        """
+
+        unit = self._load_sample('JR7-D')
+        self.assertTrue('FlipArms' in unit.specials)
+        unit = self._load_sample('AS7-D')
+        self.assertTrue('FlipArms' not in unit.specials)

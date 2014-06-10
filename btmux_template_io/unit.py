@@ -115,3 +115,21 @@ class BTMuxUnit(object):
         """
 
         return self.weight * math.floor(((self.max_speed / 10.75) / 3.0) * 2.0)
+
+    def autoset_additional_specials(self):
+        """
+        There are a few specials that have to be calculated based off of the
+        status of certain crits (FlipArms, etc). This will update
+        the ``specials`` set attrib accordingly.
+        """
+
+        if self.unit_type == 'Mech' and self.unit_move_type == 'Biped':
+            imflippinout = True
+            for section in ['left_arm', 'right_arm']:
+                contents = self.sections[section]['crits'][2:4]
+                for _, crit_data in contents:
+                    if crit_data['name'] in ['LowerActuator', 'HandOrFootActuator']:
+                        imflippinout = False
+                        break
+            if imflippinout:
+                self.specials.add('FlipArms')

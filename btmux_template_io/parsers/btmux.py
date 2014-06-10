@@ -80,6 +80,7 @@ def parse_from_string(template_contents):
     # line before the next section.
     for section_start in section_indices:
         _parse_section(lines, section_start, unit_obj)
+    unit_obj.autoset_additional_specials()
     return unit_obj
 
 

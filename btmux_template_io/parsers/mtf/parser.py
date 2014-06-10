@@ -308,3 +308,5 @@ def _add_specials(value_dict, unit_obj):
             unit_obj.specials.remove('FerroFibrous_Tech')
         except KeyError:
             pass
+
+    unit_obj.autoset_additional_specials()

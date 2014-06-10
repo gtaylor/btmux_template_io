@@ -49,8 +49,8 @@ HEADER_FIELDS = {
     'Max_Speed': {'type': float, 'unit_attr': 'max_speed'},
     'Jump_Speed': {'type': float, 'unit_attr': 'jump_speed'},
     'Comment': {'type': str, 'unit_attr': 'templater_comment'},
-    'Specials': {'type': list, 'unit_attr': 'specials'},
-    'InfantrySpecials': {'type': list, 'unit_attr': 'infantry_specials'},
+    'Specials': {'type': set, 'unit_attr': 'specials'},
+    'InfantrySpecials': {'type': set, 'unit_attr': 'infantry_specials'},
 }
 
 
@@ -120,9 +120,9 @@ def _parse_header_fields(template_lines, header_end_line_num, unit_obj):
         field_value = matches.group('field_value').strip()
 
         field_type = HEADER_FIELDS[field_name]['type']
-        if field_type == list:
-            # This is a List type header. Split it up by spaces and that's it.
-            parsed_value = field_value.split()
+        if field_type == set:
+            # This is a set type header. Split it up by spaces and that's it.
+            parsed_value = set(field_value.split())
         else:
             parsed_value = field_type(field_value)
 

@@ -189,6 +189,10 @@ CRIT_MAP = {
     'CLFlamer': {'name': 'CL.Flamer'},
     'CLFlamer (R)': {'name': 'CL.Flamer', 'flags': 'RearMount'},
 
+    'ISHeavyMG': {'name': 'IS.HeavyMachineGun'},
+    'ISHeavyMG Ammo (100)': {'name': 'Ammo_IS.HeavyMachineGun'},
+    'ISHeavyMG Ammo (50)': {'name': 'Ammo_IS.HeavyMachineGun', 'ammo_count': 50, 'flags': 'Hotload'},
+
     'CLLightMG': {'name': 'CL.LightMachineGun'},
     'CLHeavyMG': {'name': 'CL.HeavyMachineGun'},
 

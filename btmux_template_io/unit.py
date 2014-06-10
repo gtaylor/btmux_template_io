@@ -133,3 +133,8 @@ class BTMuxUnit(object):
                         break
             if imflippinout:
                 self.specials.add('FlipArms')
+            else:
+                try:
+                    self.specials.remove('FlipArms')
+                except KeyError:
+                    pass

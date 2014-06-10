@@ -155,7 +155,6 @@ def _find_and_set_section_contents(template_lines, unit_obj):
                 line.endswith('Head:') or line.endswith('Torso:'):
             _set_section_contents(line_num, template_lines, unit_obj)
 
-
 def _set_section_contents(section_start_line_num, template_lines, unit_obj):
     """
     Look through the section contents and transfer them over.
@@ -180,7 +179,10 @@ def _set_section_contents(section_start_line_num, template_lines, unit_obj):
             skip_counter -= 1
             continue
         crit_line = crit_line.strip()
-        if crit_line in ['', '-Empty-']:
+        if crit_line == '-Empty-':
+            continue
+        if crit_line == '':
+            # End of section.
             break
         #from pprint import pprint
         #pprint(unit_obj.sections[btmux_section_name]['crits'])
@@ -286,14 +288,14 @@ def _add_specials(value_dict, unit_obj):
         raise ValueError("Unknown internals type: %s" % internals)
 
     engine = value_dict['Engine']
-    if 'Fusion' in engine:
-        pass
-    elif 'XL' in engine:
+    if 'XL' in engine:
         unit_obj.specials.add('XLEngine_Tech')
     elif 'Light Engine' in engine:
         unit_obj.specials.add('LightEngine_Tech')
     elif 'Compact Engine' in engine:
         unit_obj.specials.add('CompactEngine_Tech')
+    elif 'Fusion' in engine:
+        pass
     else:
         raise ValueError("Unknown engine type: %s" % engine)
 

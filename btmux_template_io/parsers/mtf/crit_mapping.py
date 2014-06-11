@@ -19,6 +19,8 @@ CRIT_MAP = {
     'Fusion Engine': {'name': 'Engine'},
     'Gyro': {'name': 'Gyro'},
     'Ferro-Fibrous': {'name': 'FerroFibrous'},
+    'IS Ferro-Fibrous': {'name': 'FerroFibrous'},
+    'CL Ferro-Fibrous': {'name': 'FerroFibrous'},
     'Clan Ferro-Fibrous': {'name': 'FerroFibrous'},
     'Heavy Ferro-Fibrous': {'name': 'HvyFerroFibrous'},
     'Light Ferro-Fibrous': {'name': 'LtFerroFibrous'},

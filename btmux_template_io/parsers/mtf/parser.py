@@ -155,6 +155,7 @@ def _find_and_set_section_contents(template_lines, unit_obj):
                 line.endswith('Head:') or line.endswith('Torso:'):
             _set_section_contents(line_num, template_lines, unit_obj)
 
+
 def _set_section_contents(section_start_line_num, template_lines, unit_obj):
     """
     Look through the section contents and transfer them over.

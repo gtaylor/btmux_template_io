@@ -266,6 +266,7 @@ CRIT_MAP = {
     'ISUltraAC20 Ammo': {'name': 'Ammo_IS.UltraAC/20'},
 
     'ISMagshotGR': {'name': 'IS.MagshotGaussRifle'},
+    'IS Magshot GR Ammo': {'name': 'Ammo_IS.MagshotGaussRifle'},
     'ISMagshotGR Ammo': {'name': 'Ammo_IS.MagshotGaussRifle'},
 
     'ISGaussRifle': {'name': 'IS.GaussRifle'},
@@ -274,6 +275,7 @@ CRIT_MAP = {
 
     'ISHeavyGaussRifle': {'name': 'IS.HeavyGaussRifle'},
     'ISHeavyGauss Ammo': {'name': 'Ammo_IS.HeavyGaussRifle'},
+    'IS Heavy Gauss Rifle Ammo': {'name': 'Ammo_IS.HeavyGaussRifle'},
 
     'ISLightGaussRifle': {'name': 'IS.LightGaussRifle'},
     'IS Light Gauss Ammo': {'name': 'Ammo_IS.LightGaussRifle'},

@@ -285,8 +285,28 @@ def _add_specials(value_dict, unit_obj):
         pass
     elif 'Endo' in internals:
         unit_obj.specials.add('EndoSteel_Tech')
+    elif 'Reinforced' in internals:
+        unit_obj.specials.add('ReinforcedInternal_Tech')
     else:
         raise ValueError("Unknown internals type: %s" % internals)
+
+    gyro = value_dict.get('Gyro', 'Standard Gyro')
+    if 'Standard' in gyro:
+        pass
+    elif 'Compact' in gyro:
+        unit_obj.specials.add('CompactGyro_Tech')
+    elif 'XL' in gyro:
+        unit_obj.specials.add('XLGyro_Tech')
+    else:
+        raise ValueError("Unknown gyro type: %s" % gyro)
+
+    cockpit = value_dict.get('Cockpit', 'Standard Cockpit')
+    if 'Standard' in cockpit:
+        pass
+    elif 'Small' in cockpit:
+        unit_obj.specials.add('SmallCockpit_Tech')
+    else:
+        raise ValueError("Unknown cockpit type: %s" % cockpit)
 
     engine = value_dict['Engine']
     if 'XL' in engine:

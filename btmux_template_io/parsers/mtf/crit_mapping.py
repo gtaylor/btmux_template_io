@@ -234,6 +234,7 @@ CRIT_MAP = {
     'ISRotaryAC2 Ammo': {'name': 'Ammo_IS.RotaryAC/2'},
     'ISRotaryAC5': {'name': 'IS.RotaryAC/5'},
     'ISRotaryAC5 Ammo': {'name': 'Ammo_IS.RotaryAC/5'},
+    'IS Rotary AC/5 Ammo': {'name': 'Ammo_IS.RotaryAC/5'},
 
     'CLRotaryAC2': {'name': 'CL.RotaryAC/2'},
     'CLRotaryAC2 Ammo': {'name': 'Ammo_IS.RotaryAC/2'},
@@ -279,6 +280,7 @@ CRIT_MAP = {
 
     'ISLightGaussRifle': {'name': 'IS.LightGaussRifle'},
     'IS Light Gauss Ammo': {'name': 'Ammo_IS.LightGaussRifle'},
+    'ISLightGauss Ammo': {'name': 'Ammo_IS.LightGaussRifle'},
 
     'CLGaussRifle': {'name': 'CL.GaussRifle'},
     'CLGauss Ammo': {'name': 'Ammo_CL.GaussRifle'},
@@ -371,6 +373,7 @@ CRIT_MAP = {
 
     'LRM 20': {'name': 'IS.LRM-20'},
     'ISLRM20': {'name': 'IS.LRM-20'},
+    'ISLRM20 (R)': {'name': 'IS.LRM-20', 'flags': 'RearMount'},
     'IS Ammo LRM-20': {'name': 'Ammo_IS.LRM-20'},
     'ISLRM20 Ammo': {'name': 'Ammo_IS.LRM-20'},
     'ISLRM20 Ammo Artemis-capable': {'name': 'Ammo_IS.LRM-20', 'flags': 'Artemis/Mine'},

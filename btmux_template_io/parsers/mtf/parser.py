@@ -191,6 +191,10 @@ def _set_section_contents(section_start_line_num, template_lines, unit_obj):
 
         # Map MTF crit to BTMux and get some details on what we'll be writing.
         crit_data = CRIT_MAP[crit_line]
+        # The MTF map can add specials for items that BTMux doesn't need
+        # a crit for. Right now this is only SearchLight.
+        _add_special_from_mtf_map(crit_line, unit_obj)
+
         btmux_item_name = crit_data['name']
         if not btmux_item_name:
             # We don't support this item.
@@ -209,6 +213,12 @@ def _set_section_contents(section_start_line_num, template_lines, unit_obj):
         if num_crits > 1:
             # Multi-crit weapon/item. We'll skip the next however many crits.
             skip_counter = num_crits - 1
+
+
+def _add_special_from_mtf_map(mtf_name, unit_obj):
+    added_special = CRIT_MAP[mtf_name].get('add_special')
+    if added_special:
+        unit_obj.specials.add(added_special)
 
 
 def _add_special_from_crit(btmux_item_name, unit_obj):

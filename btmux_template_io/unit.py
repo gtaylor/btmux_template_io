@@ -1,6 +1,7 @@
 import math
 from collections import OrderedDict
-from battlesnake.plugins.contrib.unit_library.defines import LIGHT_WEIGHT_CLASS, \
+
+from . defines import LIGHT_WEIGHT_CLASS, \
     MEDIUM_WEIGHT_CLASS, HEAVY_WEIGHT_CLASS, ASSAULT_WEIGHT_CLASS
 
 

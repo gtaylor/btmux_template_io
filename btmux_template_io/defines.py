@@ -17,3 +17,8 @@ MAX_MECH_INTERNALS = {
     95:  {'center_torso': 30, 'side_torso': 20, 'arm': 16, 'leg': 20},
     100: {'center_torso': 31, 'side_torso': 21, 'arm': 17, 'leg': 21},
 }
+
+LIGHT_WEIGHT_CLASS = "Light"
+MEDIUM_WEIGHT_CLASS = "Medium"
+HEAVY_WEIGHT_CLASS = "Heavy"
+ASSAULT_WEIGHT_CLASS = "Assault"

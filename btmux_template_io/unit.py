@@ -54,10 +54,10 @@ class BTMuxUnit(object):
                 yield crit
 
     @property
-    def payload(self):
+    def weapons_payload(self):
         """
-        :rtype: tuple
-        :returns: A tuple of dicts in the format of (weap_payload, ammo_payload).
+        :rtype: dict
+        :returns: A dict of weapon payload details.
         """
 
         weap_dict = {}
@@ -69,6 +69,14 @@ class BTMuxUnit(object):
                 weap_dict[crit_name] = 1
                 continue
             weap_dict[crit_name] += 1
+        return weap_dict
+
+    @property
+    def ammo_payload(self):
+        """
+        :rtype: dict
+        :returns: A dict of ammo payload details.
+        """
 
         ammo_dict = {}
         for crits, crit_data in self.crits:
@@ -81,7 +89,7 @@ class BTMuxUnit(object):
             ammo_dict[crit_name]['shots'] += crit_data['ammo_count']
             #ammo_dict[crit_name]['flags'] = crit_data['flags']
 
-        return weap_dict, ammo_dict
+        return ammo_dict
 
     @property
     def jumpjet_total(self):

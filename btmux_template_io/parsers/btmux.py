@@ -186,7 +186,7 @@ def _parse_crit(raw_field_name, field_value):
     crit_data['name'] = value_split[0]
     if len(value_split) > 1:
         ammo_count = value_split[1]
-        crit_data['ammo_count'] = None if ammo_count == '-' else ammo_count
+        crit_data['ammo_count'] = None if ammo_count == '-' else int(ammo_count)
     if len(value_split) > 2:
         flags = value_split[2]
         crit_data['flags'] = None if flags == '-' else flags

@@ -1,5 +1,7 @@
 import math
 from collections import OrderedDict
+from battlesnake.plugins.contrib.unit_library.defines import LIGHT_WEIGHT_CLASS, \
+    MEDIUM_WEIGHT_CLASS, HEAVY_WEIGHT_CLASS, ASSAULT_WEIGHT_CLASS
 
 
 class BTMuxUnit(object):
@@ -50,6 +52,36 @@ class BTMuxUnit(object):
         for section_name, section_dict in self.sections.items():
             for crit in section_dict['crits']:
                 yield crit
+
+    @property
+    def payload(self):
+        """
+        :rtype: tuple
+        :returns: A tuple of dicts in the format of (weap_payload, ammo_payload).
+        """
+
+        weap_dict = {}
+        for crits, crit_data in self.crits:
+            crit_name = crit_data['name']
+            if crit_name[0:3] not in ['IS.', 'CL.']:
+                continue
+            if crit_name not in weap_dict:
+                weap_dict[crit_name] = 1
+                continue
+            weap_dict[crit_name] += 1
+
+        ammo_dict = {}
+        for crits, crit_data in self.crits:
+            crit_name = crit_data['name']
+            if not crit_name.startswith('Ammo'):
+                continue
+            if crit_name not in ammo_dict:
+                ammo_dict[crit_name] = {'tons': 0, 'shots': 0, 'flags': None}
+            ammo_dict[crit_name]['tons'] += 1
+            ammo_dict[crit_name]['shots'] += crit_data['ammo_count']
+            #ammo_dict[crit_name]['flags'] = crit_data['flags']
+
+        return weap_dict, ammo_dict
 
     @property
     def jumpjet_total(self):
@@ -114,7 +146,41 @@ class BTMuxUnit(object):
         :returns: The unit's engine size rating.
         """
 
-        return self.weight * math.floor(((self.max_speed / 10.75) / 3.0) * 2.0)
+        return int(self.weight * math.floor(((self.max_speed / 10.75) / 3.0) * 2.0))
+
+    @property
+    def walk_mp(self):
+        """
+        :rtype: int
+        :returns: The unit's walk MP.
+        """
+
+        return self.engine_size / self.weight
+
+    @property
+    def run_mp(self):
+        """
+        :rtype: int
+        :returns: The unit's run MP.
+        """
+
+        return int(math.ceil(self.walk_mp * 1.5))
+
+    @property
+    def weight_class(self):
+        """
+        :rtype: str
+        :returns: The unit's weight class.
+        """
+
+        if self.weight < 40:
+            return LIGHT_WEIGHT_CLASS
+        elif 40 <= self.weight < 60:
+            return MEDIUM_WEIGHT_CLASS
+        elif 60 <= self.weight < 80:
+            return HEAVY_WEIGHT_CLASS
+        else:
+            return ASSAULT_WEIGHT_CLASS
 
     def autoset_additional_specials(self):
         """

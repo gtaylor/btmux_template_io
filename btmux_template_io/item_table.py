@@ -34,7 +34,9 @@ CRIT_TABLE = {
     'C3Slave': {'add_special': 'C3SlaveTech'},
     'C3Master': {'add_special': 'C3MasterTech'},
     'C3i': {'add_special': 'C3I_Tech'},
+}
 
+MELEE_WEAPONS = {
     'Axe': {},
     'Claw': {},
     'Mace': {},
@@ -106,7 +108,7 @@ WEAPON_TABLE = {
                               'ammo_count': 24,
                               'bv': 63,
                               'crits': 1,
-                              'damage': 2,
+                              'damage': 0,
                               'heat': 1,
                               'long_range': 1,
                               'medium_range': 1,
@@ -114,7 +116,8 @@ WEAPON_TABLE = {
                               'short_range': 1,
                               'vrt': 10,
                               'weapon_type': 'Missile',
-                              'weight': 0.5},
+                              'weight': 0.5,
+                              'is_offensive': False},
     'CL.ArrowIVSystem': {'ammo_count': 5,
                          'bv': 171,
                          'crits': 12,
@@ -791,7 +794,7 @@ WEAPON_TABLE = {
                               'ammo_count': 12,
                               'bv': 32,
                               'crits': 1,
-                              'damage': 2,
+                              'damage': 0,
                               'heat': 1,
                               'long_range': 1,
                               'medium_range': 1,
@@ -799,7 +802,8 @@ WEAPON_TABLE = {
                               'short_range': 1,
                               'vrt': 20,
                               'weapon_type': 'Missile',
-                              'weight': 0.5},
+                              'weight': 0.5,
+                              'is_offensive': False},
     'IS.ArrowIVSystem': {'ammo_count': 5,
                          'bv': 171,
                          'crits': 15,
@@ -823,7 +827,8 @@ WEAPON_TABLE = {
                       'short_range': 1,
                       'vrt': 20,
                       'weapon_type': 'Ballistic',
-                      'weight': 1.0},
+                      'weight': 1.0,
+                      'is_offensive': False},
     'IS.ELRM-10': {'ammo_count': 9,
                    'bv': 180,
                    'crits': 4,
@@ -2184,6 +2189,7 @@ WEAPON_TABLE = {
 
 ITEM_TABLE = {}
 ITEM_TABLE.update(CRIT_TABLE)
+ITEM_TABLE.update(MELEE_WEAPONS)
 ITEM_TABLE.update(WEAPON_TABLE)
 
 # These are the TYPE ints returned by btweapstat(), which we use to generate

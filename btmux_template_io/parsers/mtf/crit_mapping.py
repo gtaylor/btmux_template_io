@@ -382,6 +382,15 @@ CRIT_MAP = {
     'ISLRM20 Ammo Artemis-capable': {'name': 'Ammo_IS.LRM-20', 'flags': 'Artemis/Mine'},
     'IS Ammo LRM-20 Artemis-capable': {'name': 'Ammo_IS.LRM-20', 'flags': 'Artemis/Mine'},
 
+    'ISExtendedLRM5': {'name': 'IS.ELRM-5'},
+    'ISExtendedLRM5 Ammo': {'name': 'Ammo_IS.ELRM-5'},
+    'ISExtendedLRM10': {'name': 'IS.ELRM-10'},
+    'ISExtendedLRM10 Ammo': {'name': 'Ammo_IS.ELRM-10'},
+    'ISExtendedLRM15': {'name': 'IS.ELRM-15'},
+    'ISExtendedLRM15 Ammo': {'name': 'Ammo_IS.ELRM-15'},
+    'ISExtendedLRM20': {'name': 'IS.ELRM-20'},
+    'ISExtendedLRM20 Ammo': {'name': 'Ammo_IS.ELRM-20'},
+
     'ISMML3': {'name': 'IS.MML-3'},
     'ISMML3 SRM Ammo': {'name': 'Ammo_IS.MML-3'},
     'IS Ammo MML-3 SRM': {'name': 'Ammo_IS.MML-3'},

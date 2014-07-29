@@ -198,6 +198,9 @@ CRIT_MAP = {
     'ISHeavyMG Ammo (100)': {'name': 'Ammo_IS.HeavyMachineGun'},
     'ISHeavyMG Ammo (50)': {'name': 'Ammo_IS.HeavyMachineGun', 'ammo_count': 50, 'flags': 'Hotload'},
 
+    'ISLightMG': {'name': 'IS.LightMachineGun'},
+    'ISLightMG Ammo (200)': {'name': 'Ammo_IS.LightMachineGun'},
+
     'CLLightMG': {'name': 'CL.LightMachineGun'},
     'CLHeavyMG': {'name': 'CL.HeavyMachineGun'},
 
@@ -454,6 +457,7 @@ CRIT_MAP = {
     'SRM 2 (R)': {'name': 'IS.SRM-2', 'flags': 'RearMount'},
     'ISSRM2': {'name': 'IS.SRM-2'},
     'ISSRM2 Ammo': {'name': 'Ammo_IS.SRM-2'},
+    'ISSRM2 Ammo Inferno': {'name': 'Ammo_IS.SRM-2', 'flags': 'Inferno'},
     'IS Ammo SRM-2': {'name': 'Ammo_IS.SRM-2'},
     'IS Ammo SRM-2 Narc-capable': {'name': 'Ammo_IS.SRM-2', 'flags': 'Narc/Smoke'},
     'IS Ammo SRM-2 Artemis-capable': {'name': 'Ammo_IS.SRM-2', 'flags': 'Artemis/Mine'},
@@ -462,6 +466,7 @@ CRIT_MAP = {
     'SRM 4 (R)': {'name': 'IS.SRM-4', 'flags': 'RearMount'},
     'ISSRM4': {'name': 'IS.SRM-4'},
     'ISSRM4 Ammo': {'name': 'Ammo_IS.SRM-4'},
+    'ISSRM4 Ammo Inferno': {'name': 'Ammo_IS.SRM-4', 'flags': 'Inferno'},
     'IS Ammo SRM-4': {'name': 'Ammo_IS.SRM-4'},
     'IS Ammo SRM-4 Narc-capable': {'name': 'Ammo_IS.SRM-4', 'flags': 'Narc/Smoke'},
     'IS Ammo SRM-4 Artemis-capable': {'name': 'Ammo_IS.SRM-4', 'flags': 'Artemis/Mine'},
@@ -470,6 +475,7 @@ CRIT_MAP = {
     'SRM 6 (R)': {'name': 'IS.SRM-6'},
     'ISSRM6': {'name': 'IS.SRM-6'},
     'ISSRM6 Ammo': {'name': 'Ammo_IS.SRM-6'},
+    'ISSRM6 Ammo Inferno': {'name': 'Ammo_IS.SRM-6', 'flags': 'Inferno'},
     'IS Ammo SRM-6': {'name': 'Ammo_IS.SRM-6'},
     'IS Ammo SRM-6 Narc-capable': {'name': 'Ammo_IS.SRM-6', 'flags': 'Narc/Smoke'},
     'IS Ammo SRM-6 Artemis-capable': {'name': 'Ammo_IS.SRM-6', 'flags': 'Artemis/Mine'},

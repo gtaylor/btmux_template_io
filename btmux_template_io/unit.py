@@ -17,6 +17,7 @@ class BTMuxUnit(object):
         self.unit_move_type = None
         self.unit_era = None
         self.unit_tro = None
+        self.manufacturer = None
         self.weight = None
         self.cargo_space = 0
         self.cargo_max_ton = 0

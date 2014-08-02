@@ -327,6 +327,8 @@ def _add_specials(value_dict, unit_obj):
         unit_obj.specials.add('CompactEngine_Tech')
     elif 'Fusion' in engine:
         pass
+    elif 'I.C.E.' in engine:
+        unit_obj.specials.add('ICEEngine_Tech')
     else:
         raise ValueError("Unknown engine type: %s" % engine)
 

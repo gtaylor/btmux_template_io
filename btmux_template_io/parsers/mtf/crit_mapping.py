@@ -96,6 +96,7 @@ CRIT_MAP = {
     'ISAntiMissileSystem': {'name': 'IS.Anti-MissileSystem'},
     'ISAMS Ammo': {'name': 'Ammo_IS.Anti-MissileSystem'},
     'IS AMS Ammo': {'name': 'Ammo_IS.Anti-MissileSystem'},
+    'ISLaserAntiMissileSystem': {'name': 'IS.LaserAMS'},
 
     'CLAntiMissileSystem': {'name': 'CL.Anti-MissileSystem'},
     'Clan AMS Ammo': {'name': 'Ammo_CL.Anti-MissileSystem'},
@@ -182,6 +183,9 @@ CRIT_MAP = {
     'Flamer (R)': {'name': 'IS.Flamer', 'flags': 'RearMount'},
     'ISFlamer': {'name': 'IS.Flamer'},
     'ISFlamer (R)': {'name': 'IS.Flamer', 'flags': 'RearMount'},
+
+    'ISHeavyFlamer': {'name': 'IS.HeavyFlamer'},
+
     'Machine Gun': {'name': 'IS.MachineGun'},
     'Machine Gun (R)': {'name': 'IS.MachineGun', 'flags': 'RearMount'},
     'ISMachine Gun': {'name': 'IS.MachineGun'},
@@ -334,6 +338,10 @@ CRIT_MAP = {
     'IS Ammo Thunderbolt-15': {'name': 'Ammo_IS.Thunderbolt-15'},
     'Thunderbolt 20': {'name': 'IS.Thunderbolt-20'},
     'IS Ammo Thunderbolt-20': {'name': 'Ammo_IS.Thunderbolt-20'},
+
+    'ISRocketLauncher10': {'name': 'IS.RL-10', 'flags': 'OneShot'},
+    'ISRocketLauncher15': {'name': 'IS.RL-15', 'flags': 'OneShot'},
+    'ISRocketLauncher20': {'name': 'IS.RL-20', 'flags': 'OneShot'},
 
     'LRM 5': {'name': 'IS.LRM-5'},
     'ISLRM5': {'name': 'IS.LRM-5'},

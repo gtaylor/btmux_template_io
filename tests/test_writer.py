@@ -37,5 +37,5 @@ class MTFWriterTests(unittest.TestCase):
         unit = mtf.parse_from_file(os.path.join(MTF_SAMPLE_DIR, 'Goliath GOL-1H.mtf'))
         fobj = StringIO()
         write_to_file(unit, fobj)
-        print fobj.getvalue()
+        #print fobj.getvalue()
         # TODO: Compare to a golden standard.

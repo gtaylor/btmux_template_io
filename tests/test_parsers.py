@@ -3,16 +3,56 @@ Template parser tests.
 """
 
 import os
+from pprint import pprint
 import unittest
 
 from btmux_template_io.parsers import btmux
 from btmux_template_io.parsers import mtf
+from btmux_template_io.parsers import ssw
 
 
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))
 BTMUX_SAMPLE_DIR = os.path.join(TEST_DIR, 'btmux_samples')
 #MTF_SAMPLE_DIR = os.path.join(TEST_DIR, 'mtf_samples')
-MTF_SAMPLE_DIR = '/Users/gtaylor/workspace/mtfs/3060u'
+MTF_SAMPLE_DIR = '/Users/gtaylor/workspace/sos_units/mtfs'
+SSW_SAMPLE_DIR = '/Users/gtaylor/workspace/sos_units/mechs'
+
+
+class SSWParserTests(unittest.TestCase):
+
+    def _load_sample(self, path):
+        return ssw.parse_from_file(os.path.join(SSW_SAMPLE_DIR, path))
+
+    def test_basic_mech_load(self):
+        """
+        Spot checks some basic mech loading values.
+        """
+
+        #self._load_sample('Nova NVA-1.ssw')
+        # Jumpjets
+        #self._load_sample('Ashman ASH-1.ssw')
+        # TSM
+        #unit = self._load_sample('Takam TAK-4M.ssw')
+        # Ammo
+        unit = self._load_sample('Orcus ORC-1.ssw')
+        #pprint(unit.sections)
+
+    def test_spammy_load(self):
+        """
+        Go through our samples directory and make sure everything loads
+        without errors.
+        """
+
+        for template_file in os.listdir(SSW_SAMPLE_DIR):
+            if template_file.startswith('.'):
+                continue
+            elif template_file.endswith('.ssi'):
+                continue
+            full_path = os.path.join(SSW_SAMPLE_DIR, template_file)
+            if not os.path.isfile(full_path):
+                continue
+            print template_file
+            self._load_sample(full_path)
 
 
 class MTFParserTests(unittest.TestCase):
@@ -24,8 +64,9 @@ class MTFParserTests(unittest.TestCase):
         """
         Spot checks some basic mech loading values.
         """
-        return
-        unit = self._load_sample('Atlas AS7-D.mtf')
+
+        unit = self._load_sample('Takam TAK-4M.mtf')
+        pprint(unit.sections)
 
     def test_spammy_load(self):
         """
@@ -33,13 +74,14 @@ class MTFParserTests(unittest.TestCase):
         without errors.
         """
 
+        self.skipTest('Temporary')
+
         for template_file in os.listdir(MTF_SAMPLE_DIR):
             if template_file.startswith('.'):
                 continue
             full_path = os.path.join(MTF_SAMPLE_DIR, template_file)
             if not os.path.isfile(full_path):
                 continue
-            print template_file
             self._load_sample(full_path)
 
 
@@ -61,7 +103,6 @@ class BTMuxParserTests(unittest.TestCase):
         """
 
         unit = self._load_sample('MAD-9M')
-        print unit.sections
         self.assertEqual(unit.reference, 'MAD-9M')
         self.assertEqual(unit.unit_type, 'Mech')
         self.assertEqual(unit.heatsink_total, 32)
@@ -84,6 +125,8 @@ class BTMuxParserTests(unittest.TestCase):
         Go through our samples directory and make sure everything loads
         without errors.
         """
+
+        self.skipTest('Temporary')
 
         SPAM_DIR = '/Users/gtaylor/workspace/btmux/game/mechs'
         for template_file in os.listdir(SPAM_DIR):

@@ -35,6 +35,16 @@ def calc_section_internal(tonnage, section):
     return MAX_MECH_INTERNALS[int(tonnage)][chart_section]
 
 
+def calc_walk_mp_from_engine_rating(engine_rating, unit_tonnage):
+    """
+    :param int engine_rating: The engine rating.
+    :rtype: int
+    :return: The walk MP.
+    """
+
+    return engine_rating / unit_tonnage
+
+
 def calc_run_mp(walk_mp):
     """
     :param int walk_mp: The unit's walk MP.

@@ -1,10 +1,13 @@
 from btmux_template_io.common_calcs import calc_walk_mp_from_engine_rating, \
     calc_run_speed_from_walk_mp
-from btmux_template_io.parsers.ssw.populators.common import add_basic_crit
+
+from . common import add_basic_crit
 
 
 def populate_movement_and_engine(xml_root, unit_obj):
     """
+    .. warning:: This must be called after populate_gyro()!
+
     :param lxml.etree.Element xml_root: The root of the XML doc.
     :param btmux_template_io.unit.BTMuxUnit unit_obj: The unit instance
         being populated.
@@ -15,26 +18,27 @@ def populate_movement_and_engine(xml_root, unit_obj):
     right_start = int(engine_e.get('rsstart', 0)) + 1
 
     engine_type = engine_e.text
-    if 'XXL' in engine_type:
+    if engine_type == 'XXL Engine':
         unit_obj.specials.add('XXL_Tech')
         torso_crits = 6
         _add_torso_crits('left_torso', left_start, torso_crits, unit_obj)
         _add_torso_crits('right_torso', right_start, torso_crits, unit_obj)
-    elif 'XL' in engine_type:
+    elif engine_type == 'XL Engine':
         unit_obj.specials.add('XLEngine_Tech')
         torso_crits = 3
         _add_torso_crits('left_torso', left_start, torso_crits, unit_obj)
         _add_torso_crits('right_torso', right_start, torso_crits, unit_obj)
-    elif 'Light Engine' in engine_type:
+    elif engine_type == 'Light Fusion Engine':
         unit_obj.specials.add('LightEngine_Tech')
         torso_crits = 2
         _add_torso_crits('left_torso', left_start, torso_crits, unit_obj)
         _add_torso_crits('right_torso', right_start, torso_crits, unit_obj)
-    elif 'Compact Engine' in engine_type:
+    elif engine_type == 'Compact Fusion Engine':
         unit_obj.specials.add('CompactEngine_Tech')
-    elif 'Fusion' in engine_type:
+    elif engine_type == 'Fusion Engine':
+        # BTMux standard issue. Nothing special.
         pass
-    elif 'I.C.E.' in engine_type:
+    elif engine_type == 'I.C.E. Engine':
         unit_obj.specials.add('ICEEngine_Tech')
     else:
         raise ValueError("Unknown engine type: %s" % engine_type)
@@ -49,7 +53,10 @@ def populate_movement_and_engine(xml_root, unit_obj):
 
 def _add_standard_ct_crits(unit_obj):
     """
-    First three CT crits are always engines.
+    First three CT crits are always engines. For all but compact engines,
+    there's a second group of engine crits after the Gyro crits. Figure
+    out what kind of Gyro we have, determine where to put the second three
+    engine crits (if applicable).
     """
 
     # All engines have a first group of three crits.
@@ -63,7 +70,7 @@ def _add_standard_ct_crits(unit_obj):
     # Figure out where the second group of engine crits start.
     if 'CompactGyro_Tech' in unit_obj.specials:
         start_crit = 6
-    elif 'Extra-Light' in unit_obj.specials:
+    elif 'XLGyro_Tech' in unit_obj.specials:
         start_crit = 10
     else:
         start_crit = 8

@@ -27,18 +27,12 @@ WEAPON_SR_RANGE_MOD = 1.0
 WEAPON_MR_RANGE_MOD = 10 / 12.0
 WEAPON_LR_RANGE_MOD = 6 / 12.0
 
-COMMON_SECTIONS = ['head', 'left_torso', 'right_torso', 'center_torso']
+COMMON_SECTIONS = ['left_torso', 'right_torso', 'center_torso', 'head']
 BIPED_LEGS = ['left_leg', 'right_leg']
 BIPED_ARMS = ['left_arm', 'right_arm']
 QUAD_LEGS = [
     'front_left_leg', 'front_right_leg', 'rear_left_leg', 'rear_right_leg',
 ]
 
-BIPED_SECTIONS = COMMON_SECTIONS + BIPED_ARMS + BIPED_LEGS
+BIPED_SECTIONS = BIPED_ARMS + BIPED_LEGS + COMMON_SECTIONS
 QUAD_SECTIONS = COMMON_SECTIONS + QUAD_LEGS
-
-EMPTY_SECTION_DICT = {
-    'armor': 0,
-    'internals': 0,
-    'crits': [],
-}

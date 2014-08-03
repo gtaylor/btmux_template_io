@@ -2,7 +2,7 @@
 import os
 
 import click
-from btmux_template_io.parsers import mtf
+from btmux_template_io.parsers import ssw
 from btmux_template_io.writer import write_to_file
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -15,17 +15,19 @@ def convert(indir, outdir):
 
     \b
     Arguments:\b
-    * indir: The directory full of MTF files to convert\b
+    * indir: The directory full of SSW files to convert\b
     * outdir: The BTMux mechs directory to write the converted files to
     """
 
     print "=" * 80
-    print "MTF dir:", indir
+    print "SSW dir:", indir
     print "BTMux dir:", outdir
     print "-" * 80
 
     for template_file in os.listdir(indir):
         if template_file.startswith('.'):
+            continue
+        if template_file.endswith('.ssi'):
             continue
         full_path = os.path.join(indir, template_file)
         if not os.path.isfile(full_path):
@@ -34,7 +36,7 @@ def convert(indir, outdir):
         print "  ", template_file
 
         in_fobj = open(full_path)
-        unit = mtf.parse_from_string(in_fobj.read())
+        unit = ssw.parse_from_string(in_fobj.read())
         in_fobj.close()
 
         write_path = os.path.join(outdir, unit.reference)

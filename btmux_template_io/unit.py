@@ -44,6 +44,29 @@ class BTMuxUnit(object):
     def __str__(self):
         return "<BTMuxUnit: %s %s>" % (self.reference, self.name)
 
+    def sort_crits(self):
+        """
+        If you shuffle around crits, sort them here afterwards to ensure
+        correct output.
+        """
+
+        for section_name, section_data in self.sections.items():
+            section_data['crits'] = sorted(
+                section_data['crits'], key=lambda ctuple: ctuple[0][0])
+
+    def print_crits(self):
+        """
+        Prints a crude representation of the unit's crits for debugging purposes.
+        """
+
+        for section_name in self.sections.keys():
+            print "========== %s =========" % section_name
+            section_crits = self.sections[section_name]['crits']
+            for crit in section_crits:
+                crit_list, crit_dict = crit
+                crit_name = crit_dict['name']
+                print section_name, crit_list, crit_name, crit_dict['flags']
+
     @property
     def crits(self):
         """

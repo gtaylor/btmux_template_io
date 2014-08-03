@@ -2,7 +2,27 @@
 Contains everything needed to map SSW crit names to BTMux.
 """
 
-CRIT_MAP = {
+PHYSICAL_WEAPON_MAP = {
+    'Hatchet': {'name': 'Axe'},
+    'Mace': {'name': 'Mace'},
+    'Claws': {'name': 'Claw'},
+    'Sword': {'name': 'Sword'},
+}
+
+EQUIPMENT_MAP = {
+    'Angel ECM': {'name': 'AngelEcm'},
+    'Guardian ECM Suite': {'name': 'Ecm'},
+    'Improved C3 Computer': {'name': 'C3i'},
+    'CASE': {'name': 'CASE'},
+    'Bloodhound Active Probe': {'name': 'BloodhoundProbe'},
+    'Beagle Active Probe': {'name': 'BeagleProbe'},
+    'Searchlight': {'name': None, 'add_special': 'SearchLight'},
+    'TAG': {'name': 'TAG'},
+    'TSM': {'name': 'TripleStrengthMyomer'},
+    'MASC': {'name': 'Masc'},
+}
+
+WEAPON_AND_AMMO_MAP = {
     'Machine Gun': {'name': 'MachineGun'},
     'Light Machine Gun': {'name': 'LightMachineGun'},
     'Heavy Machine Gun': {'name': 'HeavyMachineGun'},
@@ -65,6 +85,7 @@ CRIT_MAP = {
     'ER PPC': {'name': 'ERPPC'},
 
     'Anti-Missile System': {'name': 'Anti-MissileSystem'},
+    'Laser Anti-Missile System': {'name': 'LaserAMS'},
 
     'SRM-2': {'name': 'SRM-2'},
     'SRM-4': {'name': 'SRM-4'},

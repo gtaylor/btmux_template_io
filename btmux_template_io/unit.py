@@ -44,29 +44,6 @@ class BTMuxUnit(object):
     def __str__(self):
         return "<BTMuxUnit: %s %s>" % (self.reference, self.name)
 
-    def sort_crits(self):
-        """
-        If you shuffle around crits, sort them here afterwards to ensure
-        correct output.
-        """
-
-        for section_name, section_data in self.sections.items():
-            section_data['crits'] = sorted(
-                section_data['crits'], key=lambda ctuple: ctuple[0][0])
-
-    def print_crits(self):
-        """
-        Prints a crude representation of the unit's crits for debugging purposes.
-        """
-
-        for section_name in self.sections.keys():
-            print "========== %s =========" % section_name
-            section_crits = self.sections[section_name]['crits']
-            for crit in section_crits:
-                crit_list, crit_dict = crit
-                crit_name = crit_dict['name']
-                print section_name, crit_list, crit_name, crit_dict['flags']
-
     @property
     def crits(self):
         """
@@ -112,6 +89,7 @@ class BTMuxUnit(object):
                 ammo_dict[crit_name] = {'tons': 0, 'shots': 0, 'flags': None}
             ammo_dict[crit_name]['tons'] += 1
             ammo_dict[crit_name]['shots'] += crit_data['ammo_count']
+            # Lump all of this together for now.
             #ammo_dict[crit_name]['flags'] = crit_data['flags']
 
         return ammo_dict
@@ -214,6 +192,71 @@ class BTMuxUnit(object):
             return HEAVY_WEIGHT_CLASS
         else:
             return ASSAULT_WEIGHT_CLASS
+
+    def sort_crits(self):
+        """
+        If you shuffle around crits, sort them here afterwards to ensure
+        correct output.
+        """
+
+        for section_name, section_data in self.sections.items():
+            section_data['crits'] = sorted(
+                section_data['crits'], key=lambda ctuple: ctuple[0][0])
+
+    def print_crits(self):
+        """
+        Prints a crude representation of the unit's crits for debugging purposes.
+        """
+
+        for section_name in self.sections.keys():
+            print "========== %s =========" % section_name
+            section_crits = self.sections[section_name]['crits']
+            for crit in section_crits:
+                crit_list, crit_dict = crit
+                crit_name = crit_dict['name']
+                print section_name, crit_list, crit_name, crit_dict['flags']
+
+    def autoset_firemodes(self):
+        """
+        Looks through the mech's ammo payload to see if there are any weapons
+        that have no standard ammo. If so, auto-set the weapon to fire
+        the special ammo.
+        """
+
+        ammo_dict = {}
+        for crits, crit_data in self.crits:
+            crit_name = crit_data['name']
+            if not crit_name.startswith('Ammo'):
+                continue
+            if crit_name not in ammo_dict:
+                ammo_dict[crit_name] = {'standard': 0, 'others': []}
+
+            if crit_data['flags']:
+                ammo_dict[crit_name]['others'].append(crit_data['flags'])
+            else:
+                ammo_dict[crit_name]['standard'] += 1
+
+        for ammo_name, ammo_tracker in ammo_dict.items():
+            if 'MachineGun' in ammo_name:
+                # MGs re-use/abuses the Hotload flag for half ton ammo. Bleh.
+                continue
+            if ammo_tracker['standard'] == 0 and ammo_tracker['others']:
+                weap_name = ammo_name.replace('Ammo_', '')
+                # Naively pick the first special ammo type.
+                weap_flag = ammo_tracker['others'][0]
+                self.change_weapon_firemode(weap_name, weap_flag)
+
+    def change_weapon_firemode(self, weap_name, weap_flag):
+        """
+        :param str weap_name: The weapon name whose firemode to change. This
+            will match all weapons of this name, not just one.
+        :param str weap_flag: The firemode flag to set on the weapon.
+        """
+
+        for crits, crit_data in self.crits:
+            crit_name = crit_data['name']
+            if crit_name == weap_name:
+                crit_data['flags'] = weap_flag
 
     def autoset_additional_specials(self):
         """

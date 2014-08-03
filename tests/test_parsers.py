@@ -7,14 +7,11 @@ from pprint import pprint
 import unittest
 
 from btmux_template_io.parsers import btmux
-from btmux_template_io.parsers import mtf
 from btmux_template_io.parsers import ssw
 
 
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))
 BTMUX_SAMPLE_DIR = os.path.join(TEST_DIR, 'btmux_samples')
-#MTF_SAMPLE_DIR = os.path.join(TEST_DIR, 'mtf_samples')
-MTF_SAMPLE_DIR = '/Users/gtaylor/workspace/sos_units/mtfs'
 SSW_SAMPLE_DIR = '/Users/gtaylor/workspace/sos_units/mechs'
 
 
@@ -34,7 +31,9 @@ class SSWParserTests(unittest.TestCase):
         # TSM
         #unit = self._load_sample('Takam TAK-4M.ssw')
         # Ammo
-        unit = self._load_sample('Orcus ORC-1.ssw')
+        #unit = self._load_sample('Orcus ORC-1.ssw')
+        # Artemis
+        unit = self._load_sample('Porcupine YSR-2.ssw')
         #pprint(unit.sections)
 
     def test_spammy_load(self):
@@ -52,36 +51,6 @@ class SSWParserTests(unittest.TestCase):
             if not os.path.isfile(full_path):
                 continue
             print template_file
-            self._load_sample(full_path)
-
-
-class MTFParserTests(unittest.TestCase):
-
-    def _load_sample(self, path):
-        return mtf.parse_from_file(os.path.join(MTF_SAMPLE_DIR, path))
-
-    def test_basic_mech_load(self):
-        """
-        Spot checks some basic mech loading values.
-        """
-
-        unit = self._load_sample('Takam TAK-4M.mtf')
-        pprint(unit.sections)
-
-    def test_spammy_load(self):
-        """
-        Go through our samples directory and make sure everything loads
-        without errors.
-        """
-
-        self.skipTest('Temporary')
-
-        for template_file in os.listdir(MTF_SAMPLE_DIR):
-            if template_file.startswith('.'):
-                continue
-            full_path = os.path.join(MTF_SAMPLE_DIR, template_file)
-            if not os.path.isfile(full_path):
-                continue
             self._load_sample(full_path)
 
 

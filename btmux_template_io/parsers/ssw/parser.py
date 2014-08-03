@@ -59,7 +59,7 @@ def parse_from_string(template_contents):
     populate_artemis_crits(unit_obj)
     _add_specials(xml_root, unit_obj)
 
-    #unit_obj.print_crits()
+    unit_obj.autoset_firemodes()
 
     return unit_obj
 

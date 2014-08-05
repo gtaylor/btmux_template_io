@@ -28,9 +28,18 @@ def add_ammo(equip_e, unit_obj):
     if flags and 'Artemis' in flags:
         unit_obj.specials.add('ArtemisIV')
 
+    if ammo_count_override:
+        ammo_count = ammo_count_override
+    elif flags and 'Halfton' in flags:
+        ammo_count = item_data['ammo_count'] / 2
+    elif flags and 'Precision' in flags:
+        ammo_count = item_data['ammo_count'] / 2
+    else:
+        ammo_count = item_data['ammo_count']
+
     item_data = {
         'name': 'Ammo_' + btmux_name,
-        'ammo_count': ammo_count_override if ammo_count_override else item_data['ammo_count'],
+        'ammo_count': ammo_count,
         'flags': flags,
     }
 

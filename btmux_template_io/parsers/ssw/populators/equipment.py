@@ -36,8 +36,6 @@ def populate_equipment(xml_root, unit_obj):
         else:
             raise ValueError("Invalid equipment type: %s" % e_type)
 
-    # TODO: Add Artemis after LRM/SRM crits if present.
-
 
 def _add_equipment(equip_e, unit_obj, map_dict):
     ssw_name = equip_e.xpath('name')[0].text

@@ -19,8 +19,19 @@ def add_weapon(equip_e, unit_obj):
     else:
         flags = None
 
-    techbase = 'CL' if 'CL' in name_split[0] else 'IS'
-    weap_name = ' '.join(name_split[1:])
+    if 'IS' in name_split[0] or 'CL' in name_split[0]:
+        techbase = 'CL' if 'CL' in name_split[0] else 'IS'
+        weap_name = ' '.join(name_split[1:])
+    elif name_split[-1] in ['CP', 'CL']:
+        # I'm not 100% positive about how this works, but CP seems to be
+        # common pool, and CL seems to be clan. SSW uses these and the IS/CL
+        # prefixes inconsistently.
+        weap_name = ' '.join(name_split[:-1])
+        techbase = 'CL' if name_split[-1] == 'CL' else 'IS'
+    else:
+        # Assume IS.
+        techbase = 'IS'
+        weap_name = ' '.join(name_split)
 
     btmux_name = techbase + "." + WEAPON_AND_AMMO_MAP[weap_name]['name']
     item_data = WEAPON_TABLE[btmux_name]

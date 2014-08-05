@@ -122,13 +122,18 @@ WEAPON_AND_AMMO_MAP = {
     'Rocket Launcher 10': {'name': 'RL-10', 'flags': 'OneShot'},
     'Rocket Launcher 15': {'name': 'RL-15', 'flags': 'OneShot'},
     'Rocket Launcher 20': {'name': 'RL-20', 'flags': 'OneShot'},
+
+    'Thunderbolt-5': {'name': 'Thunderbolt-5'},
+    'Thunderbolt-10': {'name': 'Thunderbolt-10'},
+    'Thunderbolt-15': {'name': 'Thunderbolt-15'},
+    'Thunderbolt-20': {'name': 'Thunderbolt-20'},
 }
 
 AMMO_FLAG_MAPPING = {
     'Cluster': {'flags': 'LBX/Cluster'},
     'Slug': {'flags': None},
     'Precision': {'flags': 'Precision'},
-    '1/2': {'flags': 'Hotload'},
+    '1/2': {'flags': 'Halfton'},
     'Inferno': {'flags': 'Inferno'},
     'Artemis IV Capable': {'flags': 'Artemis/Mine'},
     # MML

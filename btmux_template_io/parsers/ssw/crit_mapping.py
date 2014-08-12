@@ -133,6 +133,7 @@ AMMO_FLAG_MAPPING = {
     'Cluster': {'flags': 'LBX/Cluster'},
     'Slug': {'flags': None},
     'Precision': {'flags': 'Precision'},
+    'Swarm': {'flags': 'Swarm'},
     '1/2': {'flags': 'Halfton'},
     'Inferno': {'flags': 'Inferno'},
     'Artemis IV Capable': {'flags': 'Artemis/Mine'},

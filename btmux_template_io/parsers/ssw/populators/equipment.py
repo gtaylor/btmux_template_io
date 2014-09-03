@@ -31,7 +31,7 @@ def populate_equipment(xml_root, unit_obj):
             add_ammo(equip_e, unit_obj)
         elif e_type == 'physical':
             _add_equipment(equip_e, unit_obj, PHYSICAL_WEAPON_MAP)
-        elif e_type in ['equipment', 'CASE']:
+        elif e_type in ['equipment', 'CASE', 'TargetingComputer']:
             _add_equipment(equip_e, unit_obj, EQUIPMENT_MAP)
         else:
             raise ValueError("Invalid equipment type: %s" % e_type)

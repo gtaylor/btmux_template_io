@@ -231,7 +231,10 @@ class BTMuxUnit(object):
             if crit_name not in ammo_dict:
                 ammo_dict[crit_name] = {'standard': 0, 'others': []}
 
-            if crit_data['flags']:
+            ammo_type = crit_data['flags']
+            # Artemis is "normal" ammo. We exempt it so the launchers will
+            # default to it, since they are auto-set by the ammo populator.
+            if ammo_type and ammo_type != 'Artemis/Mine':
                 ammo_dict[crit_name]['others'].append(crit_data['flags'])
             else:
                 ammo_dict[crit_name]['standard'] += 1

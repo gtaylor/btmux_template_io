@@ -20,6 +20,7 @@ EQUIPMENT_MAP = {
     'TAG': {'name': 'TAG'},
     'TSM': {'name': 'TripleStrengthMyomer'},
     'MASC': {'name': 'Masc'},
+    '(IS) Targeting Computer': {'name': 'TargetingComputer'},
 }
 
 WEAPON_AND_AMMO_MAP = {
@@ -134,11 +135,12 @@ AMMO_FLAG_MAPPING = {
     'Slug': {'flags': None},
     'Precision': {'flags': 'Precision'},
     'Swarm': {'flags': 'Swarm'},
+    'Swarm-I': {'flags': 'Swarm1'},
     '1/2': {'flags': 'Halfton'},
     'Inferno': {'flags': 'Inferno'},
     'Artemis IV Capable': {'flags': 'Artemis/Mine'},
     # MML
     'LRM': {'flags': None},
     'SRM': {'flags': None, 'ammo_count': 13},
-
+    'Semi-Guided': {'flags': 'Sguided'},
 }

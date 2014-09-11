@@ -7,6 +7,7 @@ PHYSICAL_WEAPON_MAP = {
     'Mace': {'name': 'Mace'},
     'Claws': {'name': 'Claw'},
     'Sword': {'name': 'Sword'},
+    'Dual Saw': {'name': 'Dual_Saw'},
 }
 
 EQUIPMENT_MAP = {

@@ -41,6 +41,7 @@ MELEE_WEAPONS = {
     'Claw': {'tons_per_crit': 15},
     'Mace': {'tons_per_crit': 10},
     'Sword': {'tons_per_crit': 15},
+    'Dual_Saw': {'crits': 7},
 }
 
 WEAPON_TABLE = {

@@ -31,7 +31,7 @@ setup(
     packages=[
         'btmux_template_io',
         'btmux_template_io.parsers',
-        'btmux_template_io.parsers.mtf',
+        'btmux_template_io.parsers.ssw',
         'btmux_template_io.writer',
         'btmux_template_io.scripts',
     ],
@@ -42,8 +42,8 @@ setup(
     install_requires=['click'],
     entry_points={
         'console_scripts': [
-            'mtfconv=btmux_template_io.scripts.mtfconv:convert',
-            'mtfconvdir=btmux_template_io.scripts.mtfconvdir:convert',
+            'sswconv=btmux_template_io.scripts.sswconv:convert',
+            'sswconvdir=btmux_template_io.scripts.sswconvdir:convert',
         ],
     },
 )

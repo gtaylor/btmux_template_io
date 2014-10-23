@@ -14,6 +14,8 @@ EQUIPMENT_MAP = {
     'Angel ECM': {'name': 'AngelEcm'},
     'Guardian ECM Suite': {'name': 'Ecm'},
     'Improved C3 Computer': {'name': 'C3i'},
+    'C3 Computer (Master)': {'name': 'C3Master', 'add_special': 'C3MasterTech'},
+    'C3 Computer (Slave)': {'name': 'C3Slave', 'add_special': 'C3SlaveTech'},
     'CASE': {'name': 'CASE'},
     'Bloodhound Active Probe': {'name': 'BloodhoundProbe'},
     'Beagle Active Probe': {'name': 'BeagleProbe'},
